@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
+import 'package:demo/colorextension.dart';
 class FoodMenuScreen extends StatefulWidget {
   @override
   _FoodMenuScreenState createState() => _FoodMenuScreenState();
@@ -8,6 +8,7 @@ class FoodMenuScreen extends StatefulWidget {
 
 class _FoodMenuScreenState extends State<FoodMenuScreen> {
   int _selectedCardIndex = -1;
+
 
   final List<String> breakfastItems = [
     "Pancakes",
@@ -96,15 +97,15 @@ class _FoodMenuScreenState extends State<FoodMenuScreen> {
                   height: 70,
                   child: ListTile(
                     title: Text(_getItemsForSelectedCard()[index]),
-                    leading: Container(
-                      height: 50,
-                      width: 60,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40)
-                      ),
-                      child: Image.asset(images[index],
-                      ),
-                    ),
+                    // leading: Container(
+                    //   height: 50,
+                    //   width: 60,
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(40)
+                    //   ),
+                    //   child: Image.asset(images[index],
+                    //   ),
+                    // ),
                   ),
                 );
               },
@@ -113,7 +114,76 @@ class _FoodMenuScreenState extends State<FoodMenuScreen> {
               : Container(),
         ],
       ),
-    );
+
+    bottomNavigationBar: ClipRRect(
+           child: Container(
+    height: 60,
+    decoration:
+    BoxDecoration(border: Border.all(color: Colors.black38)),
+    child: BottomNavigationBar(
+    type: BottomNavigationBarType.fixed,
+    backgroundColor: TColor.lightGray,
+    showSelectedLabels: false,
+    showUnselectedLabels: false,
+    elevation: 1,
+    items: [
+    BottomNavigationBarItem(
+    icon: IconButton(
+    icon: Icon(CupertinoIcons.home, size: 23),
+    onPressed: (){
+    Navigator.pushReplacementNamed(context, '/home');
+    },),
+    label: "Home"),
+    BottomNavigationBarItem(
+    icon: IconButton(
+    icon: ImageIcon(
+    AssetImage("images/fit.png"),
+    color: Colors.deepPurple,
+    size: 30,
+    ),
+    onPressed: (){
+    Navigator.pushReplacementNamed(context, '/training');
+    },
+    ),
+    label: "Training"),
+    BottomNavigationBarItem(
+    icon: IconButton(
+    icon: ImageIcon(
+    AssetImage("images/food.png"),
+    color: Colors.deepPurple,
+    size: 30,
+    ),
+    onPressed: (){
+    Navigator.pushReplacementNamed(context, '/food');
+    },
+    ),
+    label: "Food"),
+    BottomNavigationBarItem(
+    icon: IconButton(
+    icon: Icon(CupertinoIcons.person),
+    color: Colors.deepPurple,
+    onPressed: (){
+    Navigator.pushReplacementNamed(context, '/profile');
+    },
+    ),
+    label: "Profile"),
+    ]),
+    ),
+    ),
+    floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    floatingActionButton: Theme(
+    data: ThemeData(
+    colorScheme:
+    ColorScheme.fromSeed(seedColor: TColor.primaryColor2)),
+    child: FloatingActionButton(
+    onPressed: () {},
+    shape: const CircleBorder(),
+    child: Container(
+    decoration: BoxDecoration(),
+    child: const Icon(CupertinoIcons.chat_bubble),
+    ),
+    ),
+    ));
   }
 
   Widget _buildFoodCard(int index, String title) {

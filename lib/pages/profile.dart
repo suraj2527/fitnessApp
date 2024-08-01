@@ -1,8 +1,8 @@
-import 'package:demo/traning.dart';
+import 'package:demo/pages/traning.dart';
 import 'package:flutter/material.dart';
-import 'colorextension.dart';
+import '../colorextension.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:demo/food.dart';
+import 'package:demo/pages/food.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -354,7 +354,7 @@ class _ProfileState extends State<Profile> {
         ),
         bottomNavigationBar: ClipRRect(
           child: Container(
-            padding: EdgeInsets.all(8),
+            height: 60,
             decoration:
                 BoxDecoration(border: Border.all(color: Colors.black38)),
             child: BottomNavigationBar(
@@ -365,44 +365,44 @@ class _ProfileState extends State<Profile> {
                 elevation: 1,
                 items: [
                   BottomNavigationBarItem(
-                      icon: Icon(CupertinoIcons.home, size: 23), label: "Home"),
+                      icon: IconButton(
+                          icon: Icon(CupertinoIcons.home, size: 23),
+                      onPressed: (){
+                          Navigator.pushReplacementNamed(context, '/home');
+                      },),
+                      label: "Home"),
                   BottomNavigationBarItem(
-                      icon: CupertinoButton(
-                        child: ImageIcon(
+                      icon: IconButton(
+                        icon: ImageIcon(
                           AssetImage("images/fit.png"),
+                          color: Colors.deepPurple,
                           size: 30,
                         ),
-                        onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Home()));
+                        onPressed: (){
+                         Navigator.pushReplacementNamed(context, '/training');
                         },
                       ),
                       label: "Training"),
                   BottomNavigationBarItem(
-                      icon: CupertinoButton(
-                          child: ImageIcon(
-                            AssetImage("images/food.png"),
-                            size: 30,
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FoodMenuScreen()));
-                          }),
+                      icon: IconButton(
+                        icon: ImageIcon(
+                          AssetImage("images/food.png"),
+                          color: Colors.deepPurple,
+                          size: 30,
+                        ),
+                        onPressed: (){
+                            Navigator.pushReplacementNamed(context, '/food');
+                        },
+                      ),
                       label: "Food"),
                   BottomNavigationBarItem(
-                      icon: CupertinoButton(
-                          child: Icon(
-                            CupertinoIcons.person,
-                            size: 26,
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Profile()));
-                          }),
+                      icon: IconButton(
+                        icon: Icon(CupertinoIcons.person),
+                        color: Colors.deepPurple,
+                        onPressed: (){
+                          Navigator.pushReplacementNamed(context, '/profile');
+                        },
+                      ),
                       label: "Profile"),
                 ]),
           ),

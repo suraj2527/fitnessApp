@@ -1,16 +1,16 @@
-import 'package:demo/profile.dart';
+import 'package:demo/pages/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/colorextension.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class Training extends StatefulWidget {
+  const Training({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<Training> createState() => _TrainingState();
 }
 
-class _HomeState extends State<Home> {
+class _TrainingState extends State<Training> {
   late String dropdownValue = 'Beginner';
 
   @override
@@ -231,57 +231,65 @@ class _HomeState extends State<Home> {
         ),
       ),
       bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(0)),
         child: Container(
-          decoration: BoxDecoration(border: Border.all(color: Colors.black38)),
+          height: 60,
+          decoration:
+          BoxDecoration(border: Border.all(color: Colors.black38)),
           child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               backgroundColor: TColor.lightGray,
               showSelectedLabels: false,
               showUnselectedLabels: false,
               elevation: 1,
-              iconSize: 26,
               items: [
                 BottomNavigationBarItem(
-                    icon: Icon(CupertinoIcons.home), label: "Home"),
+                    icon: IconButton(
+                      icon: Icon(CupertinoIcons.home, size: 23),
+                      onPressed: (){
+                        Navigator.pushReplacementNamed(context, '/home');
+                      },),
+                    label: "Home"),
                 BottomNavigationBarItem(
-                  icon: CupertinoButton(
-                    child: ImageIcon(
-                      AssetImage("images/fit.png"),
-                      size: 35,
+                    icon: IconButton(
+                      icon: ImageIcon(
+                        AssetImage("images/fit.png"),
+                        color: Colors.deepPurple,
+                        size: 30,
+                      ),
+                      onPressed: (){
+                        Navigator.pushReplacementNamed(context, '/training');
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Home()));
-                    },
-                  ),
-                  label: "Training",
-                ),
+                    label: "Training"),
                 BottomNavigationBarItem(
-                    icon: ImageIcon(
-                      AssetImage("images/food.png"),
-                      size: 35,
+                    icon: IconButton(
+                      icon: ImageIcon(
+                        AssetImage("images/food.png"),
+                        color: Colors.deepPurple,
+                        size: 30,
+                      ),
+                      onPressed: (){
+                        Navigator.pushReplacementNamed(context, '/food');
+                      },
                     ),
                     label: "Food"),
                 BottomNavigationBarItem(
                     icon: IconButton(
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Profile()));
+                      icon: Icon(CupertinoIcons.person),
+                      color: Colors.deepPurple,
+                      onPressed: (){
+                        Navigator.pushReplacementNamed(context, '/profile');
                       },
-                      icon: Icon(
-                        CupertinoIcons.person,
-                        size: 25,
-                      ),
                     ),
-                    label: "Profile")
+                    label: "Profile"),
               ]),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Theme(
         data: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: TColor.primaryColor2)),
+            colorScheme:
+            ColorScheme.fromSeed(seedColor: TColor.primaryColor2)),
         child: FloatingActionButton(
           onPressed: () {},
           shape: const CircleBorder(),
