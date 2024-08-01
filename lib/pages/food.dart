@@ -11,46 +11,121 @@ class _FoodMenuScreenState extends State<FoodMenuScreen> {
 
 
   final List<String> breakfastItems = [
-    "Pancakes",
-    "Waffles",
-    "Omelette",
-    "Toast",
-    "Cereal",
-    "Smoothie",
-    "Yogurt",
-    "Coffee"
+    '''Spinach Moong Dal
+Cheela With Protein
+Shake + Papaya''',
+    '''Overnight Oats Berries
+Breakfast Bowl  +
+1 Seasonal Fruit''',
+    '''Scrambled Egg
+Spread On Toast,
+Protein Shake''',
+    '''Almond/Soy Milk
++ Avocado Toast''',
+    '''Boiled  Eggs  with
+Steamed vegetables''',
+    '''Raw Paneer Patty
+Sandwich In Whole
+Grain Bread, Fruits''',
+    '''Apple Peanut Butter
+Smoothie With Whey
+Protein''',
+    '''Bowl Of Dal Khichdi
+Accompanied With
+Spoonful Of Curd''',
+    '''A Protein-Packed 
+Smoothie With 
+Banana ''',
+    '''Poha Topped With
+Lots Of Veggies With
+Spoonful Of Curd''',
+    '''Whole-Grain Toast
+Spread With Peanut
+Butter''',
   ];
   final List<String> images = [
-    "images/fit.png",
-    "images/food.png",
-    "images/w1.jpg",
-    "images/w2.jpg",
-    "images/w3.jpg",
-    "images/w4.jpg",
-    "images/w5.jpg",
-    "images/w6.jpg"
+    "images/B1.jpg",
+    "images/B2.jpg",
+    "images/B3.jpg",
+    "images/B4.jpg",
+    "images/B5.jpg",
+    "images/B6.jpeg",
+    "images/B7.jpeg",
+    "images/B8.jpeg",
+    "images/B9.jpeg",
+    "images/B10.jpeg",
+    "images/B11.jpeg",
+
   ];
 
   final List<String> lunchItems = [
-    "Burger",
-    "Sandwich",
-    "Salad",
-    "Soup",
-    "Pasta",
-    "Pizza",
-    "Sushi",
-    "Juice"
+    '''Paneer And Mixed
+Vegetable Sabzi
+With Roti''',
+    '''Rajma Curry With
+Brown Rice''',
+    '''Soya Chunks  And
+Vegetable Biryani
+With Raita''',
+    '''Jeera Rice With
+Dal Tadka''',
+    '''Brown Rice, Lauki Chana
+Dal, Anda Curry
+And Chana Salad''',
+    '''Grilled Chicken With
+White Bean & Tomato
+Salad''',
+    '''Lean Chicken Burger
+With Lettuce, Tomato
+And Beans''',
+    '''Lemon Gravy Chicken,
+Brown Rice, Greek
+Yoghurt''',
+    '''Whole Wheat Chicken
+Pasta White Beans
+And Green Salad''',
+    '''Multigrain Chapati,
+Egg Bhuji, Cucumber
+Raita, Sauteed Vegetable''',
+    '''Mutton Curry With
+Roti And a Side of
+Beetroot Salad'''
   ];
 
   final List<String> dinnerItems = [
-    "Steak",
-    "Chicken",
-    "Fish",
-    "Rice",
-    "Vegetables",
-    "Pasta",
-    "Soup",
-    "Wine"
+    '''Multigrain Roti And
+Mushroom Matar
+Paneer Curry''',
+    '''Quinoa  Vegetable
+Khichdi,Shahi Paneer,
+Vegetable Salad.''',
+    '''Bajra Roti With
+Masoor Dal And
+Cabbage Sabzi''',
+    '''Bhindi Masala With
+Brown Rice And
+Cucumber Raita''',
+    '''Brown Rice With
+Channa Masala
+And Spinach Salad''',
+    '''Broiled Fish, Brown
+Rice, Mixed Green
+Salad''',
+    '''Palak Paneer Multigrain
+Roti Lauki Raita And
+Mango Salad''',
+    '''Tofu Curry,  Whole
+Wheat Roti, Sprouts
+Salad''',
+    '''Stuffed Baked
+Mushroom,
+Green Salad''',
+    '''Multigrain Millet 
+Vegetable Khichdi
+And Curd''',
+    '''Namkeen Chawal
+with Spoonful Of
+Curd'''
   ];
 
   void _onCardPressed(int index) {
@@ -74,13 +149,18 @@ class _FoodMenuScreenState extends State<FoodMenuScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var Width = MediaQuery.of(context).size.width;
+    var Height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
+        backgroundColor: Colors.grey[300],
+      appBar: AppBar(backgroundColor: TColor.primaryColor1,
         title: Text('Food Menu'),
       ),
       body: Column(
+
         children: [
           Row(
+
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildFoodCard(0, "Breakfast"),
@@ -90,25 +170,46 @@ class _FoodMenuScreenState extends State<FoodMenuScreen> {
           ),
           _selectedCardIndex != -1
               ? Expanded(
-            child: ListView.builder(
-              itemCount: _getItemsForSelectedCard().length,
-              itemBuilder: (context, index ) {
-                return Container(
-                  height: 70,
-                  child: ListTile(
-                    title: Text(_getItemsForSelectedCard()[index]),
-                    // leading: Container(
-                    //   height: 50,
-                    //   width: 60,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(40)
-                    //   ),
-                    //   child: Image.asset(images[index],
-                    //   ),
-                    // ),
-                  ),
-                );
-              },
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: ListView.builder(
+                itemCount: _getItemsForSelectedCard().length,
+                itemBuilder: (context, index ) {
+                  return Card(
+                    elevation: 1,
+                    child: Container(
+                      
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                          gradient: LinearGradient(
+                              colors: [
+                                TColor.primaryColor1.withOpacity(0.11119),
+                                TColor.primaryColor2.withOpacity(0.25),
+                              ]
+                          )
+                      ),
+                      height: Height*0.125,
+                      child: ListTile(
+                        title: Text(_getItemsForSelectedCard()[index]),
+                        trailing: Container(
+                          height: 80,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40)
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30)
+                            ),
+                            child: Image.asset(images[index],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
           )
               : Container(),
@@ -187,20 +288,25 @@ class _FoodMenuScreenState extends State<FoodMenuScreen> {
   }
 
   Widget _buildFoodCard(int index, String title) {
+    var Width = MediaQuery.of(context).size.width;
+    var Height = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () => _onCardPressed(index),
-      child: Card(
+      child: Card(color: Colors.grey[350],
         shape: RoundedRectangleBorder(
+
           borderRadius: BorderRadius.circular(15),
         ),
         child: Container(
-          width: 100,
-          height: 100,
+
+          width: Width*0.3,
+          height: Height*0.1,
           child: Center(
             child: Text(title),
+            )
           ),
         ),
-      ),
-    );
+      );
+
   }
 }
