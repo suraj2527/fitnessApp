@@ -2,6 +2,7 @@ import 'package:demo/traning.dart';
 import 'package:flutter/material.dart';
 import 'colorextension.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:demo/food.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -22,19 +23,18 @@ class _ProfileState extends State<Profile> {
     var Height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: TColor.lightGray,
-      appBar: AppBar(
-        title: Text("Profile"),
         backgroundColor: TColor.lightGray,
-      ),
+        appBar: AppBar(
+          title: Text("Profile"),
+          backgroundColor: TColor.lightGray,
+        ),
         body: SafeArea(
-
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
                 SizedBox(
-                  height: Height*0.01,
+                  height: Height * 0.01,
                 ),
                 ListTile(
                   leading: Padding(
@@ -54,8 +54,8 @@ class _ProfileState extends State<Profile> {
                     style: TextStyle(color: TColor.gray),
                   ),
                   trailing: Container(
-                    width: Width*0.2,
-                    height: Height*0.03,
+                    width: Width * 0.2,
+                    height: Height * 0.03,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         gradient: LinearGradient(colors: [
@@ -73,14 +73,14 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 SizedBox(
-                  height: Height*0.01,
+                  height: Height * 0.01,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
-                      height: Height*0.08,
-                      width: Width*0.25,
+                      height: Height * 0.08,
+                      width: Width * 0.25,
                       child: Card(
                         elevation: 2,
                         color: Colors.white,
@@ -104,8 +104,8 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     Container(
-                      height: Height*0.08,
-                      width: Width*0.25,
+                      height: Height * 0.08,
+                      width: Width * 0.25,
                       child: Card(
                         elevation: 2,
                         color: Colors.white,
@@ -131,8 +131,8 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     Container(
-                      height: Height*0.08,
-                      width: Width*0.25,
+                      height: Height * 0.08,
+                      width: Width * 0.25,
                       child: Card(
                         elevation: 2,
                         color: Colors.white,
@@ -159,7 +159,7 @@ class _ProfileState extends State<Profile> {
                   ],
                 ),
                 SizedBox(
-                  height: Height*0.01,
+                  height: Height * 0.01,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -237,10 +237,7 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: Height*0.01
-
-                ),
+                SizedBox(height: Height * 0.01),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -357,8 +354,7 @@ class _ProfileState extends State<Profile> {
         ),
         bottomNavigationBar: ClipRRect(
           child: Container(
-            height :Height*0.07,
-            padding: EdgeInsets.all(0),
+            padding: EdgeInsets.all(8),
             decoration:
                 BoxDecoration(border: Border.all(color: Colors.black38)),
             child: BottomNavigationBar(
@@ -367,19 +363,14 @@ class _ProfileState extends State<Profile> {
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
                 elevation: 1,
-
                 items: [
                   BottomNavigationBarItem(
-                      icon: Icon(CupertinoIcons.home,size: 23),
-
-                      label: "Home"),
-
+                      icon: Icon(CupertinoIcons.home, size: 23), label: "Home"),
                   BottomNavigationBarItem(
                       icon: CupertinoButton(
                         child: ImageIcon(
                           AssetImage("images/fit.png"),
                           size: 30,
-
                         ),
                         onPressed: () {
                           Navigator.push(context,
@@ -388,16 +379,30 @@ class _ProfileState extends State<Profile> {
                       ),
                       label: "Training"),
                   BottomNavigationBarItem(
-                      icon: ImageIcon(
-                        AssetImage("images/food.png"),
-                        size: 30,
-                      ),
+                      icon: CupertinoButton(
+                          child: ImageIcon(
+                            AssetImage("images/food.png"),
+                            size: 30,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FoodMenuScreen()));
+                          }),
                       label: "Food"),
                   BottomNavigationBarItem(
-                      icon: Icon(
-                        CupertinoIcons.person,
-                        size: 26,
-                      ),
+                      icon: CupertinoButton(
+                          child: Icon(
+                            CupertinoIcons.person,
+                            size: 26,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Profile()));
+                          }),
                       label: "Profile"),
                 ]),
           ),

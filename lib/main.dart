@@ -1,3 +1,5 @@
+import 'package:demo/food.dart';
+import 'package:demo/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/traning.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: FoodMenuScreen(),
     );
   }
 }
