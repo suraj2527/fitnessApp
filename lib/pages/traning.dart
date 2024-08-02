@@ -217,7 +217,7 @@ class _TrainingState extends State<Training> {
                     _buildWorkoutCard(2, "Dumble"),
                     _buildWorkoutCard(3, "legs"),
                     _buildWorkoutCard(4, "Chest"),
-                    _buildWorkoutCard(5, "Muthi"),
+                    _buildWorkoutCard(5, "Shoulder"),
                     _buildWorkoutCard(6, "BenchPress"),
                     _buildWorkoutCard(7, "Running"),
 

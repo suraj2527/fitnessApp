@@ -49,15 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
           child: ListView(
             children: [
               TextFormField(
-                decoration: InputDecoration(
-                  hintText: 'Name',
-                  prefixIcon: Icon(Icons.person_outline),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey[50],
-                ),
+                decoration: InputDecoration(labelText: 'Name'),
                 onChanged: (value) => name = value,
                 validator: (value) => value!.isEmpty ? 'Enter your name' : null,
               ),

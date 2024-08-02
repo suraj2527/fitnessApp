@@ -66,7 +66,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Profile updated successfully')),
         );
-        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false); // Go back to the previous screen
+        Navigator.pushReplacementNamed(context, '/profile');
+        // Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+        // Go back to the previous screen
       } on FirebaseAuthException catch (e) {
         setState(() {
           errorMessage = e.message!;

@@ -390,7 +390,8 @@ class _ProfileState extends State<Profile> {
                             trailing: Text("log Out",
                             style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 14),),
                             onTap: () {
-                              Navigator.pushReplacementNamed(context, '/signIn');
+                              // Navigator.pushReplacementNamed(context, '/signIn');
+                              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
                             },
                           )
                         ],
