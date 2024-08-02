@@ -1,7 +1,6 @@
-import 'package:demo/pages/profile.dart';
-import 'package:demo/pages/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:demo/pages/signup.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -12,7 +11,6 @@ class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
-  String errorMessage = '';
 
   Future<void> _signIn() async {
     if (_formKey.currentState!.validate()) {
@@ -21,11 +19,10 @@ class _SignInPageState extends State<SignInPage> {
           email: email,
           password: password,
         );
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign-In Successful')));
         Navigator.pushReplacementNamed(context, '/profile');
       } on FirebaseAuthException catch (e) {
-        setState(() {
-          errorMessage = e.message!;
-        });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message!)));
       }
     }
   }
@@ -41,36 +38,16 @@ class _SignInPageState extends State<SignInPage> {
           child: ListView(
             children: [
               TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red, width: 1.0),
-                  ),
-                ),
+                decoration: InputDecoration(labelText: 'Email'),
                 onChanged: (value) => email = value,
-                validator: (value) =>
-                    value!.isEmpty ? 'Enter your email' : null,
+                validator: (value) => value!.isEmpty ? 'Enter your email' : null,
               ),
               TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red, width: 1.0),
-                  ),
-                ),
+                decoration: InputDecoration(labelText: 'Password'),
                 obscureText: true,
                 onChanged: (value) => password = value,
-                validator: (value) =>
-                    value!.isEmpty ? 'Enter your password' : null,
+                validator: (value) => value!.isEmpty ? 'Enter your password' : null,
               ),
-              if (errorMessage.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                    errorMessage,
-                    style: TextStyle(color: Colors.red),
-                  ),
-                ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _signIn,
@@ -78,8 +55,10 @@ class _SignInPageState extends State<SignInPage> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignUpPage()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUpPage()),
+                  );
                 },
                 child: Text('Don\'t have an account? Sign Up'),
               ),

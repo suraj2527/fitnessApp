@@ -6,7 +6,7 @@ import 'package:demo/pages/profile.dart';
 import 'package:demo/pages/food.dart';
 import 'package:demo/pages/traning.dart';
 import 'package:demo/pages/HomePage.dart';
-
+import 'package:demo/SubScreens/editProfile.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,13 +19,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Profile(),
+      home: SignInPage(),
+
       routes: {
         '/signup': (context) => SignUpPage(),
         '/profile': (context) => Profile(),
         '/food': (context) => FoodMenuScreen(),
         '/training': (context) => Training(),
         '/home' : (context) => HomePage(),
+        '/editProfile' :(context) => EditProfilePage(),
+        '/signIn' : (context) => SignInPage(),
 
       },
     );

@@ -16,12 +16,4 @@ class TColor {
   static Color get lightGray => const Color(0xffF7F8F8);
 }
 
-class Hover {
-  PopupMenuButton get hovers => PopupMenuButton(
-        itemBuilder: (BuildContext context) => [
-          PopupMenuItem(child: Text("Beginning")),
-          PopupMenuItem(child: Text("Intermediate")),
-          PopupMenuItem(child: Text("Advance")),
-        ],
-      );
-}
+

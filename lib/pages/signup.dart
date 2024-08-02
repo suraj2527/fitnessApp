@@ -15,31 +15,25 @@ class _SignUpPageState extends State<SignUpPage> {
   String age = '';
   String weight = '';
   String height = '';
-  String errorMessage = '';
 
   Future<void> _signUp() async {
     if (_formKey.currentState!.validate()) {
       try {
-        UserCredential userCredential =
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(userCredential.user!.uid)
-            .set({
+        await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
           'name': name,
           'email': email,
           'age': age,
           'weight': weight,
           'height': height,
         });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign-Up Successful')));
         Navigator.pop(context);
       } on FirebaseAuthException catch (e) {
-        setState(() {
-          errorMessage = e.message!;
-        });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message!)));
       }
     }
   }
@@ -56,77 +50,43 @@ class _SignUpPageState extends State<SignUpPage> {
             children: [
               TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Name',
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red, width: 1.0),
+                  hintText: 'Name',
+                  prefixIcon: Icon(Icons.person_outline),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
+                  filled: true,
+                  fillColor: Colors.grey[50],
                 ),
                 onChanged: (value) => name = value,
                 validator: (value) => value!.isEmpty ? 'Enter your name' : null,
               ),
               TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red, width: 1.0),
-                  ),
-                ),
+                decoration: InputDecoration(labelText: 'Email'),
                 onChanged: (value) => email = value,
-                validator: (value) =>
-                    value!.isEmpty ? 'Enter your email' : null,
+                validator: (value) => value!.isEmpty ? 'Enter your email' : null,
               ),
               TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red, width: 1.0),
-                  ),
-                ),
+                decoration: InputDecoration(labelText: 'Password'),
                 obscureText: true,
                 onChanged: (value) => password = value,
-                validator: (value) =>
-                    value!.isEmpty ? 'Enter your password' : null,
+                validator: (value) => value!.isEmpty ? 'Enter your password' : null,
               ),
               TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Age',
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red, width: 1.0),
-                  ),
-                ),
+                decoration: InputDecoration(labelText: 'Age'),
                 onChanged: (value) => age = value,
                 validator: (value) => value!.isEmpty ? 'Enter your age' : null,
               ),
               TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Weight',
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red, width: 1.0),
-                  ),
-                ),
+                decoration: InputDecoration(labelText: 'Weight'),
                 onChanged: (value) => weight = value,
-                validator: (value) =>
-                    value!.isEmpty ? 'Enter your weight' : null,
+                validator: (value) => value!.isEmpty ? 'Enter your weight' : null,
               ),
               TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Height',
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red, width: 1.0),
-                  ),
-                ),
+                decoration: InputDecoration(labelText: 'Height'),
                 onChanged: (value) => height = value,
-                validator: (value) =>
-                    value!.isEmpty ? 'Enter your height' : null,
+                validator: (value) => value!.isEmpty ? 'Enter your height' : null,
               ),
-              if (errorMessage.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                    errorMessage,
-                    style: TextStyle(color: Colors.red),
-                  ),
-                ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _signUp,

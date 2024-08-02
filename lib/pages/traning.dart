@@ -11,10 +11,68 @@ class Training extends StatefulWidget {
 }
 
 class _TrainingState extends State<Training> {
+  int _selectedCardIndex = -1;
+
+
+  final List<String> choices = [
+    "Begineer",
+    "Intermediate",
+    "Advance",
+  ];
+  Widget _buildWorkoutCard(int index, String title) {
+    return GestureDetector(
+      onTap: () => _OnCardPressed(index),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Container(
+          width: 100,
+          height: 100,
+          child: Center(
+            child: Text(title),
+          ),
+        ),
+      ),
+    );
+  }
+
+
+  void _OnCardPressed(int index) {
+    setState(() {
+      _selectedCardIndex = _selectedCardIndex == index ? -1 : index;
+    });
+  }
+  List<String> _getItemsForSelectedCard() {
+    switch (_selectedCardIndex) {
+      case 0:
+        return choices;
+      case 1:
+        return choices;
+      case 2:
+        return choices;
+      case 3:
+        return choices;
+      case 4:
+        return choices;
+      case 5:
+        return choices;
+      case 6:
+        return choices;
+      case 7:
+        return choices;
+
+      default:
+        return ['choices'];
+    }
+  }
+
   late String dropdownValue = 'Beginner';
 
   @override
   Widget build(BuildContext context) {
+    var Width = MediaQuery.of(context).size.width;
+    var Height = MediaQuery.of(context).size.height;
     ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: TColor.primaryColor1));
     return Scaffold(
@@ -24,7 +82,7 @@ class _TrainingState extends State<Training> {
           "Training",
           style: TextStyle(),
         ),
-        backgroundColor: TColor.primaryColor1,
+        backgroundColor: TColor.primaryColor1
       ),
       body: SafeArea(
         child: Padding(
@@ -154,78 +212,40 @@ class _TrainingState extends State<Training> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      width: 100,
-                      height: 100,
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: TColor.primaryColor2,
-                      ),
-                      child: TextButton(
-                        child: Text(""),
-                        onPressed: () {},
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(20),
-                      width: 100,
-                      height: 100,
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: TColor.primaryColor2,
-                      ),
-                      child: Center(child: Text("")),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      width: 100,
-                      height: 100,
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: TColor.primaryColor2,
-                      ),
-                      child: Center(child: Text("")),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      width: 100,
-                      height: 100,
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: TColor.primaryColor2,
-                      ),
-                      child: Center(child: Text("")),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      width: 100,
-                      height: 100,
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: TColor.primaryColor2,
-                      ),
-                      child: Center(child: Text("")),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      width: 100,
-                      height: 100,
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: TColor.primaryColor2,
-                      ),
-                      child: Center(child: Text("")),
-                    )
+                    _buildWorkoutCard(0, "PushUp"),
+                    _buildWorkoutCard(1, "PullUp"),
+                    _buildWorkoutCard(2, "Dumble"),
+                    _buildWorkoutCard(3, "legs"),
+                    _buildWorkoutCard(4, "Chest"),
+                    _buildWorkoutCard(5, "Muthi"),
+                    _buildWorkoutCard(6, "BenchPress"),
+                    _buildWorkoutCard(7, "Running"),
+
+
                   ],
                 ),
               ),
+              _selectedCardIndex != -1
+                  ? Expanded(
+                child: ListView.builder(
+                  itemCount: _getItemsForSelectedCard().length,
+                  itemBuilder: (context, index ) {
+                    return InkWell(
+                      child: Container(
+                        height: Height*0.1,
+                        child: Card(
+                          color: TColor.secondaryColor1.withOpacity(0.2),
+                          child: ListTile(
+                            title: Text(_getItemsForSelectedCard()[index]),
+
+                          ),
+                        ),
+                      ),
+                      onTap: (){},
+                    );
+                  },
+                ),
+              ): Container(),
             ],
           ),
         ),
@@ -302,3 +322,5 @@ class _TrainingState extends State<Training> {
     );
   }
 }
+
+

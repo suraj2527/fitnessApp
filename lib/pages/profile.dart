@@ -1,8 +1,10 @@
-import 'package:demo/pages/traning.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo/SubScreens/editProfile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../SubScreens/workoutProgress.dart';
 import '../colorextension.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:demo/pages/food.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -12,6 +14,29 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User? _user;
+  DocumentSnapshot? _userData;
+
+  @override
+  void initState() {
+    super.initState();
+    _user = _auth.currentUser;
+    _fetchUserData();
+  }
+
+  Future<void> _fetchUserData() async {
+    if (_user != null) {
+      DocumentSnapshot userData = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(_user!.uid)
+          .get();
+      setState(() {
+        _userData = userData;
+      });
+    }
+  }
+
   late String lang = 'English';
   var items = ['English', 'Hindi'];
   bool _notificationswitch = true;
@@ -26,9 +51,11 @@ class _ProfileState extends State<Profile> {
         backgroundColor: TColor.lightGray,
         appBar: AppBar(
           title: Text("Profile"),
-          backgroundColor: TColor.lightGray,
+          backgroundColor: TColor.primaryColor1,
         ),
-        body: SafeArea(
+        body: _userData == null
+            ? Center(child: CircularProgressIndicator())
+            : SafeArea(
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
@@ -46,30 +73,36 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                   title: Text(
-                    "Suraj",
+                    '${_userData!['name']}',
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
                   ),
                   subtitle: Text(
                     "Weight Gainer",
                     style: TextStyle(color: TColor.gray),
                   ),
-                  trailing: Container(
-                    width: Width * 0.2,
-                    height: Height * 0.03,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: LinearGradient(colors: [
-                          TColor.primaryColor1,
-                          TColor.primaryColor2,
-                        ])),
-                    child: Center(
-                        child: Text(
-                      "Edit",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
-                          color: TColor.gray),
-                    )),
+                  trailing:
+                  CupertinoButton(
+                    child: Container(
+                      width: Width * 0.2,
+                      height: Height * 0.03,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          gradient: LinearGradient(colors: [
+                            TColor.primaryColor1,
+                            TColor.primaryColor2,
+                          ])),
+                      child: Center(
+                          child: Text(
+                        "Edit",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                            color: TColor.gray),
+                      )),
+                    ),
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfilePage() ));
+                    }
                   ),
                 ),
                 SizedBox(
@@ -88,7 +121,7 @@ class _ProfileState extends State<Profile> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "180cm",
+                              '${_userData!['height']}',
                               style: TextStyle(
                                   color: TColor.primaryColor1, fontSize: 18),
                             ),
@@ -113,7 +146,7 @@ class _ProfileState extends State<Profile> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "55Kg",
+                              '${_userData!['weight']}',
                               style: TextStyle(
                                 color: TColor.primaryColor1,
                                 fontSize: 18,
@@ -141,7 +174,7 @@ class _ProfileState extends State<Profile> {
                           children: [
                             Center(
                                 child: Text(
-                              "19Yr",
+                                  '${_userData!['age']}',
                               style: TextStyle(
                                   color: TColor.primaryColor1, fontSize: 18),
                             )),
@@ -193,7 +226,7 @@ class _ProfileState extends State<Profile> {
                               size: 18,
                             ),
                             onTap: () {
-                              print(("Tapped"));
+                              Navigator.pushNamed(context, '/editProfile');
                             },
                           ),
                           ListTile(
@@ -211,7 +244,9 @@ class _ProfileState extends State<Profile> {
                               color: TColor.gray,
                               size: 18,
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ActivityTrackerPage()));
+                            },
                           ),
                           ListTile(
                             leading: Icon(
@@ -342,6 +377,21 @@ class _ProfileState extends State<Profile> {
                               },
                             ),
                             onTap: () {},
+                          ),
+                          ListTile(
+                            leading: Icon(
+                              Icons.logout_outlined,
+                              color: TColor.primaryColor1,
+                            ),
+                            title: Text(
+                              "Logout",
+                              style: TextStyle(color: TColor.gray),
+                            ),
+                            trailing: Text("log Out",
+                            style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 14),),
+                            onTap: () {
+                              Navigator.pushReplacementNamed(context, '/signIn');
+                            },
                           )
                         ],
                       ),
@@ -366,10 +416,11 @@ class _ProfileState extends State<Profile> {
                 items: [
                   BottomNavigationBarItem(
                       icon: IconButton(
-                          icon: Icon(CupertinoIcons.home, size: 23),
-                      onPressed: (){
+                        icon: Icon(CupertinoIcons.home, size: 23),
+                        onPressed: () {
                           Navigator.pushReplacementNamed(context, '/home');
-                      },),
+                        },
+                      ),
                       label: "Home"),
                   BottomNavigationBarItem(
                       icon: IconButton(
@@ -378,8 +429,8 @@ class _ProfileState extends State<Profile> {
                           color: Colors.deepPurple,
                           size: 30,
                         ),
-                        onPressed: (){
-                         Navigator.pushReplacementNamed(context, '/training');
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, '/training');
                         },
                       ),
                       label: "Training"),
@@ -390,8 +441,8 @@ class _ProfileState extends State<Profile> {
                           color: Colors.deepPurple,
                           size: 30,
                         ),
-                        onPressed: (){
-                            Navigator.pushReplacementNamed(context, '/food');
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, '/food');
                         },
                       ),
                       label: "Food"),
@@ -399,7 +450,7 @@ class _ProfileState extends State<Profile> {
                       icon: IconButton(
                         icon: Icon(CupertinoIcons.person),
                         color: Colors.deepPurple,
-                        onPressed: (){
+                        onPressed: () {
                           Navigator.pushReplacementNamed(context, '/profile');
                         },
                       ),
