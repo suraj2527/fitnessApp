@@ -50,8 +50,8 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
         backgroundColor: TColor.lightGray,
         appBar: AppBar(
-          title: Text("Profile"),
-          backgroundColor: TColor.primaryColor1,
+          title: Text("Profile",style: TextStyle(color: Colors.white),),
+          backgroundColor: Colors.black,
         ),
         body: _userData == null
             ? Center(child: CircularProgressIndicator())
@@ -68,8 +68,8 @@ class _ProfileState extends State<Profile> {
                     padding: const EdgeInsets.only(right: 20),
                     child: CircleAvatar(
                       radius: 30,
-                      backgroundColor: TColor.primaryColor2,
-                      child: Icon(CupertinoIcons.person),
+                      backgroundColor: Colors.grey[700],
+                      child: Icon(CupertinoIcons.person,color: Colors.white,),
                     ),
                   ),
                   title: Text(
@@ -87,17 +87,15 @@ class _ProfileState extends State<Profile> {
                       height: Height * 0.03,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          gradient: LinearGradient(colors: [
-                            TColor.primaryColor1,
-                            TColor.primaryColor2,
-                          ])),
+                        color: Colors.grey[700]
+                          ),
                       child: Center(
                           child: Text(
                         "Edit",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 12,
-                            color: TColor.gray),
+                            color: Colors.white),
                       )),
                     ),
                     onPressed: (){
@@ -116,18 +114,18 @@ class _ProfileState extends State<Profile> {
                       width: Width * 0.25,
                       child: Card(
                         elevation: 2,
-                        color: Colors.white,
+                        color: Colors.grey[700],
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               '${_userData!['height']}',
                               style: TextStyle(
-                                  color: TColor.primaryColor1, fontSize: 18),
+                                  color: Colors.white, fontSize: 18),
                             ),
                             Text(
                               "Height",
-                              style: TextStyle(color: TColor.gray),
+                              style: TextStyle(color: Colors.white),
                             ),
                           ],
                         ),
@@ -141,20 +139,20 @@ class _ProfileState extends State<Profile> {
                       width: Width * 0.25,
                       child: Card(
                         elevation: 2,
-                        color: Colors.white,
+                        color: Colors.grey[700],
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               '${_userData!['weight']}',
                               style: TextStyle(
-                                color: TColor.primaryColor1,
+                                color: Colors.white,
                                 fontSize: 18,
                               ),
                             ),
                             Text(
                               "Weight",
-                              style: TextStyle(color: TColor.gray),
+                              style: TextStyle(color: Colors.white),
                             ),
                           ],
                         ),
@@ -168,7 +166,7 @@ class _ProfileState extends State<Profile> {
                       width: Width * 0.25,
                       child: Card(
                         elevation: 2,
-                        color: Colors.white,
+                        color: Colors.grey[700],
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -176,11 +174,11 @@ class _ProfileState extends State<Profile> {
                                 child: Text(
                                   '${_userData!['age']}',
                               style: TextStyle(
-                                  color: TColor.primaryColor1, fontSize: 18),
+                                  color: Colors.white, fontSize: 18),
                             )),
                             Text(
                               "Age",
-                              style: TextStyle(color: TColor.gray),
+                              style: TextStyle(color: Colors.white),
                             ),
                           ],
                         ),
@@ -213,16 +211,16 @@ class _ProfileState extends State<Profile> {
                           ListTile(
                             leading: Icon(
                               Icons.person,
-                              color: TColor.primaryColor1,
+                              color: Colors.black,
                               size: 22,
                             ),
                             title: Text(
                               "Personal Data",
-                              style: TextStyle(color: TColor.gray),
+                              style: TextStyle(color: Colors.black,),
                             ),
                             trailing: Icon(
                               Icons.arrow_forward_ios_outlined,
-                              color: TColor.gray,
+                              color: Colors.black,
                               size: 18,
                             ),
                             onTap: () {
@@ -232,16 +230,17 @@ class _ProfileState extends State<Profile> {
                           ListTile(
                             leading: Icon(
                               Icons.insert_chart_outlined_rounded,
-                              color: TColor.primaryColor1,
+                              color: Colors.black,
+
                               size: 22,
                             ),
                             title: Text(
                               "Workout Progress",
-                              style: TextStyle(color: TColor.gray),
+                              style: TextStyle(color: Colors.black,),
                             ),
                             trailing: Icon(
                               Icons.arrow_forward_ios_outlined,
-                              color: TColor.gray,
+                              color: Colors.black,
                               size: 18,
                             ),
                             onTap: () {
@@ -251,11 +250,12 @@ class _ProfileState extends State<Profile> {
                           ListTile(
                             leading: Icon(
                               Icons.notifications_active_outlined,
-                              color: TColor.primaryColor1,
+                              color: Colors.black,
+
                             ),
                             title: Text(
                               "Notification",
-                              style: TextStyle(color: TColor.gray),
+                              style: TextStyle(color: Colors.black,),
                             ),
                             trailing: CupertinoSwitch(
                               value: _notificationswitch,
@@ -292,11 +292,13 @@ class _ProfileState extends State<Profile> {
                           ListTile(
                               leading: Icon(
                                 Icons.language_outlined,
-                                color: TColor.primaryColor1,
+                                color: Colors.black,
+
                               ),
                               title: Text(
                                 "Language",
-                                style: TextStyle(color: TColor.gray),
+                                style: TextStyle(color: Colors.black,
+                                ),
                               ),
                               trailing: Container(
                                 decoration: BoxDecoration(
@@ -307,6 +309,8 @@ class _ProfileState extends State<Profile> {
                                   value: lang,
                                   icon: Icon(
                                     Icons.arrow_drop_down,
+                                      color: Colors.black,
+
                                   ),
                                   items: items.map((String items) {
                                     return DropdownMenuItem(
@@ -314,7 +318,7 @@ class _ProfileState extends State<Profile> {
                                       child: Text(
                                         items,
                                         style: TextStyle(
-                                            color: TColor.gray, fontSize: 12),
+                                            color: Colors.black, fontSize: 12),
                                       ),
                                     );
                                   }).toList(),
@@ -328,16 +332,17 @@ class _ProfileState extends State<Profile> {
                           ListTile(
                             leading: Icon(
                               Icons.next_plan_outlined,
-                              color: TColor.primaryColor1,
+                              color: Colors.black,
+
                               size: 22,
                             ),
                             title: Text(
                               "Plan Setting",
-                              style: TextStyle(color: TColor.gray),
+                              style: TextStyle(color: Colors.black,),
                             ),
                             trailing: Icon(
                               Icons.arrow_forward_ios_outlined,
-                              color: TColor.gray,
+                              color: Colors.black,
                               size: 18,
                             ),
                             onTap: () {},
@@ -345,16 +350,17 @@ class _ProfileState extends State<Profile> {
                           ListTile(
                             leading: Icon(
                               Icons.email_outlined,
-                              color: TColor.primaryColor1,
+                              color: Colors.black,
+
                               size: 22,
                             ),
                             title: Text(
                               "Contact Us",
-                              style: TextStyle(color: TColor.gray),
+                              style: TextStyle(color: Colors.black,),
                             ),
                             trailing: Icon(
                               Icons.arrow_forward_ios_outlined,
-                              color: TColor.gray,
+                              color: Colors.black,
                               size: 18,
                             ),
                             onTap: () {},
@@ -362,11 +368,12 @@ class _ProfileState extends State<Profile> {
                           ListTile(
                             leading: Icon(
                               Icons.dark_mode_outlined,
-                              color: TColor.primaryColor1,
+                              color: Colors.black,
+
                             ),
                             title: Text(
                               "Dark Mode",
-                              style: TextStyle(color: TColor.gray),
+                              style: TextStyle(color: Colors.black,),
                             ),
                             trailing: CupertinoSwitch(
                               value: _darkswitch,
@@ -381,11 +388,12 @@ class _ProfileState extends State<Profile> {
                           ListTile(
                             leading: Icon(
                               Icons.logout_outlined,
-                              color: TColor.primaryColor1,
+                              color: Colors.black,
+
                             ),
                             title: Text(
                               "Logout",
-                              style: TextStyle(color: TColor.gray),
+                              style: TextStyle(color: Colors.black,),
                             ),
                             trailing: Text("log Out",
                             style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 14),),
@@ -417,7 +425,7 @@ class _ProfileState extends State<Profile> {
                 items: [
                   BottomNavigationBarItem(
                       icon: IconButton(
-                        icon: Icon(CupertinoIcons.home, size: 23),
+                        icon: Icon(CupertinoIcons.home, size: 23,color: Colors.black,),
                         onPressed: () {
                           Navigator.pushReplacementNamed(context, '/home');
                         },
@@ -427,7 +435,7 @@ class _ProfileState extends State<Profile> {
                       icon: IconButton(
                         icon: ImageIcon(
                           AssetImage("images/fit.png"),
-                          color: Colors.deepPurple,
+                          color: Colors.black,
                           size: 30,
                         ),
                         onPressed: () {
@@ -439,7 +447,7 @@ class _ProfileState extends State<Profile> {
                       icon: IconButton(
                         icon: ImageIcon(
                           AssetImage("images/food.png"),
-                          color: Colors.deepPurple,
+                          color: Colors.black,
                           size: 30,
                         ),
                         onPressed: () {
@@ -450,7 +458,7 @@ class _ProfileState extends State<Profile> {
                   BottomNavigationBarItem(
                       icon: IconButton(
                         icon: Icon(CupertinoIcons.person),
-                        color: Colors.deepPurple,
+                        color: Colors.black,
                         onPressed: () {
                           Navigator.pushReplacementNamed(context, '/profile');
                         },
@@ -460,18 +468,17 @@ class _ProfileState extends State<Profile> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Theme(
-          data: ThemeData(
-              colorScheme:
-                  ColorScheme.fromSeed(seedColor: TColor.primaryColor2)),
-          child: FloatingActionButton(
+        floatingActionButton:
+
+        FloatingActionButton(
+          backgroundColor: TColor.greey,
             onPressed: () {},
             shape: const CircleBorder(),
             child: Container(
               decoration: BoxDecoration(),
-              child: const Icon(CupertinoIcons.chat_bubble),
+              child: const Icon(CupertinoIcons.chat_bubble,color: Colors.white,),
             ),
           ),
-        ));
+        );
   }
 }

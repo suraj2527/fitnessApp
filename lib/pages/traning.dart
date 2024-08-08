@@ -23,14 +23,16 @@ class _TrainingState extends State<Training> {
     return GestureDetector(
       onTap: () => _OnCardPressed(index),
       child: Card(
+        color: TColor.greey,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
         child: Container(
+
           width: 100,
           height: 100,
           child: Center(
-            child: Text(title),
+            child: Text(title,style: TextStyle(color: Colors.white),),
           ),
         ),
       ),
@@ -80,9 +82,9 @@ class _TrainingState extends State<Training> {
       appBar: AppBar(
         title: Text(
           "Training",
-          style: TextStyle(),
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: TColor.primaryColor1
+        backgroundColor: Colors.black
       ),
       body: SafeArea(
         child: Padding(
@@ -264,19 +266,20 @@ class _TrainingState extends State<Training> {
               items: [
                 BottomNavigationBarItem(
                     icon: IconButton(
-                      icon: Icon(CupertinoIcons.home, size: 23),
-                      onPressed: (){
+                      icon: Icon(CupertinoIcons.home, size: 23,color: Colors.black,),
+                      onPressed: () {
                         Navigator.pushReplacementNamed(context, '/home');
-                      },),
+                      },
+                    ),
                     label: "Home"),
                 BottomNavigationBarItem(
                     icon: IconButton(
                       icon: ImageIcon(
                         AssetImage("images/fit.png"),
-                        color: Colors.deepPurple,
+                        color: Colors.black,
                         size: 30,
                       ),
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.pushReplacementNamed(context, '/training');
                       },
                     ),
@@ -285,10 +288,10 @@ class _TrainingState extends State<Training> {
                     icon: IconButton(
                       icon: ImageIcon(
                         AssetImage("images/food.png"),
-                        color: Colors.deepPurple,
+                        color: Colors.black,
                         size: 30,
                       ),
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.pushReplacementNamed(context, '/food');
                       },
                     ),
@@ -296,8 +299,8 @@ class _TrainingState extends State<Training> {
                 BottomNavigationBarItem(
                     icon: IconButton(
                       icon: Icon(CupertinoIcons.person),
-                      color: Colors.deepPurple,
-                      onPressed: (){
+                      color: Colors.black,
+                      onPressed: () {
                         Navigator.pushReplacementNamed(context, '/profile');
                       },
                     ),
@@ -306,19 +309,18 @@ class _TrainingState extends State<Training> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Theme(
-        data: ThemeData(
-            colorScheme:
-            ColorScheme.fromSeed(seedColor: TColor.primaryColor2)),
-        child: FloatingActionButton(
-          onPressed: () {},
-          shape: const CircleBorder(),
-          child: Container(
-            decoration: BoxDecoration(),
-            child: const Icon(CupertinoIcons.chat_bubble),
-          ),
+      floatingActionButton:
+
+      FloatingActionButton(
+        backgroundColor: TColor.greey,
+        onPressed: () {},
+        shape: const CircleBorder(),
+        child: Container(
+          decoration: BoxDecoration(),
+          child: const Icon(CupertinoIcons.chat_bubble,color: Colors.white,),
         ),
       ),
+
     );
   }
 }

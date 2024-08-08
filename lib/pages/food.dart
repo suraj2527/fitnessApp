@@ -153,8 +153,8 @@ Curd'''
     var Height = MediaQuery.of(context).size.height;
     return Scaffold(
         backgroundColor: Colors.grey[300],
-      appBar: AppBar(backgroundColor: TColor.primaryColor1,
-        title: Text('Food Menu'),
+      appBar: AppBar(backgroundColor: Colors.black,
+        title: Text('Food Menu',style: TextStyle(color: Colors.white),),
       ),
       body: Column(
 
@@ -216,74 +216,74 @@ Curd'''
         ],
       ),
 
-    bottomNavigationBar: ClipRRect(
-           child: Container(
-    height: 60,
-    decoration:
-    BoxDecoration(border: Border.all(color: Colors.black38)),
-    child: BottomNavigationBar(
-    type: BottomNavigationBarType.fixed,
-    backgroundColor: TColor.lightGray,
-    showSelectedLabels: false,
-    showUnselectedLabels: false,
-    elevation: 1,
-    items: [
-    BottomNavigationBarItem(
-    icon: IconButton(
-    icon: Icon(CupertinoIcons.home, size: 23),
-    onPressed: (){
-    Navigator.pushReplacementNamed(context, '/home');
-    },),
-    label: "Home"),
-    BottomNavigationBarItem(
-    icon: IconButton(
-    icon: ImageIcon(
-    AssetImage("images/fit.png"),
-    color: Colors.deepPurple,
-    size: 30,
-    ),
-    onPressed: (){
-    Navigator.pushReplacementNamed(context, '/training');
-    },
-    ),
-    label: "Training"),
-    BottomNavigationBarItem(
-    icon: IconButton(
-    icon: ImageIcon(
-    AssetImage("images/food.png"),
-    color: Colors.deepPurple,
-    size: 30,
-    ),
-    onPressed: (){
-    Navigator.pushReplacementNamed(context, '/food');
-    },
-    ),
-    label: "Food"),
-    BottomNavigationBarItem(
-    icon: IconButton(
-    icon: Icon(CupertinoIcons.person),
-    color: Colors.deepPurple,
-    onPressed: (){
-    Navigator.pushReplacementNamed(context, '/profile');
-    },
-    ),
-    label: "Profile"),
-    ]),
-    ),
-    ),
-    floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    floatingActionButton: Theme(
-    data: ThemeData(
-    colorScheme:
-    ColorScheme.fromSeed(seedColor: TColor.primaryColor2)),
-    child: FloatingActionButton(
-    onPressed: () {},
-    shape: const CircleBorder(),
-    child: Container(
-    decoration: BoxDecoration(),
-    child: const Icon(CupertinoIcons.chat_bubble),
-    ),
-    ),
+      bottomNavigationBar: ClipRRect(
+        child: Container(
+          height: 60,
+          decoration:
+          BoxDecoration(border: Border.all(color: Colors.black38)),
+          child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: TColor.lightGray,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              elevation: 1,
+              items: [
+                BottomNavigationBarItem(
+                    icon: IconButton(
+                      icon: Icon(CupertinoIcons.home, size: 23,color: Colors.black,),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/home');
+                      },
+                    ),
+                    label: "Home"),
+                BottomNavigationBarItem(
+                    icon: IconButton(
+                      icon: ImageIcon(
+                        AssetImage("images/fit.png"),
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/training');
+                      },
+                    ),
+                    label: "Training"),
+                BottomNavigationBarItem(
+                    icon: IconButton(
+                      icon: ImageIcon(
+                        AssetImage("images/food.png"),
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/food');
+                      },
+                    ),
+                    label: "Food"),
+                BottomNavigationBarItem(
+                    icon: IconButton(
+                      icon: Icon(CupertinoIcons.person),
+                      color: Colors.black,
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/profile');
+                      },
+                    ),
+                    label: "Profile"),
+              ]),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton:
+
+      FloatingActionButton(
+        backgroundColor: TColor.greey,
+        onPressed: () {},
+        shape: const CircleBorder(),
+        child: Container(
+          decoration: BoxDecoration(),
+          child: const Icon(CupertinoIcons.chat_bubble,color: Colors.white,),
+        ),
+
     ));
   }
 
@@ -292,7 +292,7 @@ Curd'''
     var Height = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () => _onCardPressed(index),
-      child: Card(color: Colors.grey[350],
+      child: Card(color: Colors.grey[700],
         shape: RoundedRectangleBorder(
 
           borderRadius: BorderRadius.circular(15),
@@ -302,7 +302,7 @@ Curd'''
           width: Width*0.3,
           height: Height*0.1,
           child: Center(
-            child: Text(title),
+            child: Text(title,style: TextStyle(color: Colors.white),),
             )
           ),
         ),
