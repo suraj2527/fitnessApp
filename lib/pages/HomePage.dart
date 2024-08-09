@@ -1,3 +1,4 @@
+import 'package:demo/pages/yoga.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/colorextension.dart';
@@ -13,8 +14,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(backgroundColor: Colors.grey.shade400,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("Hello ABC",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+        backgroundColor: Colors.black,
+        title: Text("Hello ABC",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.white),),
       ),
       body: SafeArea(child:
       Padding(
@@ -22,33 +23,37 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment:CrossAxisAlignment.start,
           children: [
-            Text("My Plan",style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold) ,),
+            Text("Popular Plan",style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold) ,),
             SizedBox(height: 35,),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
 
                   height: 120,
-                  width: 140,
+                  width: 150,
                   child: CupertinoButton(
                     padding: EdgeInsets.all(10),
-                    color: Colors.grey,
+                    color: Colors.grey[700],
 
                     borderRadius: BorderRadius.circular(8),
-                    child: Text("Workout Details",style: TextStyle(color: Colors.white,fontSize: 18),textAlign: TextAlign.center,),
-                    onPressed: (){},),
+                    child: Text("Popular Workout",style: TextStyle(color: Colors.white,fontSize: 18),textAlign: TextAlign.center,),
+                    onPressed: (){
+
+                    },),
                 ),
                 SizedBox(
 
                   height: 120,
-                  width: 140,
+                  width: 150,
                   child: CupertinoButton(
                     padding: EdgeInsets.all(10),
-                    color: Colors.grey,
+                    color: Colors.grey[700],
 
                     borderRadius: BorderRadius.circular(8),
-                    child: Text("Medidate Time",style: TextStyle(color: Colors.white,fontSize: 18,),textAlign: TextAlign.center,),
-                    onPressed: (){},),
+                    child: Text("Popular Yoga",style: TextStyle(color: Colors.white,fontSize: 18,),textAlign: TextAlign.center,),
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> YogaScreen()));
+                    },),
                 ),
 
               ],),
@@ -56,28 +61,17 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 35,),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+
                 SizedBox(
 
-                  height: 120,
-                  width: 140,
+                  height: 80,
+                  width: 340,
                   child: CupertinoButton(
                     padding: EdgeInsets.all(10),
-                    color: Colors.grey,
+                    color: Colors.grey[700],
 
                     borderRadius: BorderRadius.circular(8),
-                    child: Text("Calories Burn",style: TextStyle(color: Colors.white,fontSize: 18),textAlign: TextAlign.center,),
-                    onPressed: (){},),
-                ),
-                SizedBox(
-
-                  height: 120,
-                  width: 140,
-                  child: CupertinoButton(
-                    padding: EdgeInsets.all(10),
-                    color: Colors.grey,
-
-                    borderRadius: BorderRadius.circular(8),
-                    child: Text("Let's Go",style: TextStyle(color: Colors.white,fontSize: 18,),textAlign: TextAlign.center,),
+                    child: Text("Let's Go...",style: TextStyle(color: Colors.white,fontSize: 18,)),
                     onPressed: (){},),
                 ),
 
