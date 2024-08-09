@@ -1,3 +1,4 @@
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/pages/signin.dart';
@@ -19,18 +20,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignInPage(),
+      home: foodTile(),
 
-      routes: {
-        '/signup': (context) => SignUpPage(),
-        '/profile': (context) => Profile(),
-        '/food': (context) => FoodMenuScreen(),
-        '/training': (context) => Training(),
-        '/home' : (context) => HomePage(),
-        '/editProfile' :(context) => EditProfilePage(),
-        '/signIn' : (context) => SignInPage(),
 
-      },
     );
   }
 }
