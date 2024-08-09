@@ -1,7 +1,10 @@
+import 'package:demo/pages/traning.dart';
 import 'package:demo/pages/yoga.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/colorextension.dart';
+
+import 'bottom_navbar.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -38,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(8),
                     child: Text("Popular Workout",style: TextStyle(color: Colors.white,fontSize: 18),textAlign: TextAlign.center,),
                     onPressed: (){
-
+Navigator.push(context, MaterialPageRoute(builder: (context)=> Training()));
                     },),
                 ),
                 SizedBox(
@@ -79,10 +82,12 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 20,),
             Text("Weekly Status:",style:
             TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-
+            //DashbaordWidget(),
           ],
         ),
+
       )),
-     );
+
+    );
   }
 }
