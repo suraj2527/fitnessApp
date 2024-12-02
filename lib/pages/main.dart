@@ -1,8 +1,14 @@
+import 'package:demo/SubScreens/vedio_info.dart';
 import 'package:demo/pages/bottom_navbar.dart';
+import 'package:demo/pages/profile.dart';
+import 'package:demo/pages/signin.dart';
+import 'package:demo/pages/traning.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-import 'package:demo/pages/HomePage.dart';
+import 'package:get/get.dart';
+import 'package:demo/pages/yoga.dart';
+import 'package:demo/pages/HomePage.dart'
+;
 
 
 void main() async {
@@ -14,9 +20,11 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DashbaordWidget(),
+      home: SignInPage(),
+
+
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:demo/pages/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:demo/pages/signup.dart';
@@ -20,7 +21,7 @@ class _SignInPageState extends State<SignInPage> {
           password: password,
         );
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign-In Successful')));
-        Navigator.pushReplacementNamed(context, '/profile');
+        Navigator.push(context, MaterialPageRoute(builder: (context) =>DashbaordWidget() ));
       } on FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message!)));
       }

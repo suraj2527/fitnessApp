@@ -1,6 +1,8 @@
 import 'package:demo/pages/HomePage.dart';
 import 'package:demo/pages/food.dart';
 import 'package:demo/pages/profile.dart';
+import 'package:demo/pages/yoga.dart';
+
 import 'package:demo/pages/traning.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +33,9 @@ class _DashbaordWidgetState extends State<DashbaordWidget> {
     return Scaffold(
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.black,
+        backgroundColor: Colors.white,
         onTap: _onTabTapped,
         currentIndex: _currentIndex,
         items: [

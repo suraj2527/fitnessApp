@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.grey.shade400,
+    return Scaffold(backgroundColor: TColor.lightGray,
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text("Hello ABC",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.white),),
