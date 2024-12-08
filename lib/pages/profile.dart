@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demo/SubScreens/editProfile.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../SubScreens/editProfile.dart';
 import '../SubScreens/workoutProgress.dart';
-import '../colorextension.dart';
-import 'package:flutter/cupertino.dart';
+import '../colorextension.dart';  // Assuming this file contains custom color definitions.
 
 class Profile extends StatefulWidget {
-  const Profile({super.key});
+  const Profile({Key? key}) : super(key: key);
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -17,6 +16,13 @@ class _ProfileState extends State<Profile> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? _user;
   DocumentSnapshot? _userData;
+  bool _isLoading = true;
+  String _errorMessage = "";
+
+  bool _notificationswitch = true;
+  bool _darkswitch = false;
+  String _lang = 'English';
+  final List<String> _languages = ['English', 'Hindi'];
 
   @override
   void initState() {
@@ -26,392 +32,207 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<void> _fetchUserData() async {
-    if (_user != null) {
-      DocumentSnapshot userData = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(_user!.uid)
-          .get();
+    try {
+      if (_user != null) {
+        DocumentSnapshot userData = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(_user!.uid)
+            .get();
+        if (userData.exists) {
+          setState(() {
+            _userData = userData;
+            _isLoading = false;
+          });
+        } else {
+          setState(() {
+            _errorMessage = "User data not found.";
+            _isLoading = false;
+          });
+        }
+      }
+    } catch (e) {
       setState(() {
-        _userData = userData;
+        _errorMessage = "Failed to load profile data.";
+        _isLoading = false;
       });
     }
   }
 
-  late String lang = 'English';
-  var items = ['English', 'Hindi'];
-  bool _notificationswitch = true;
-  bool _darkswitch = false;
-
   @override
   Widget build(BuildContext context) {
-    var Width = MediaQuery.of(context).size.width;
-    var Height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-        backgroundColor: TColor.lightGray,
-        appBar: AppBar(
-          title: Text("Profile",style: TextStyle(color: Colors.white),),
-          backgroundColor: Colors.black,
+      backgroundColor: Colors.black, // Dark background for the entire screen
+      appBar: AppBar(
+        title: const Text(
+          "Profile",
+          style: TextStyle(color: Colors.white),
         ),
-        body: _userData == null
-            ? Center(child: CircularProgressIndicator())
-            : SafeArea(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: Height * 0.01,
-                ),
-                ListTile(
-                  leading: Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Colors.grey[700],
-                      child: Icon(CupertinoIcons.person,color: Colors.white,),
-                    ),
-                  ),
-                  title: Text(
-                    '${_userData!['name']}',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-                  ),
-                  subtitle: Text(
-                    "Weight Gainer",
-                    style: TextStyle(color: TColor.gray),
-                  ),
-                  trailing:
-                  CupertinoButton(
-                    child: Container(
-                      width: Width * 0.2,
-                      height: Height * 0.03,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                        color: Colors.grey[700]
-                          ),
-                      child: Center(
-                          child: Text(
-                        "Edit",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12,
-                            color: Colors.white),
-                      )),
-                    ),
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfilePage() ));
-                    }
-                  ),
-                ),
-                SizedBox(
-                  height: Height * 0.01,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      height: Height * 0.08,
-                      width: Width * 0.25,
-                      child: Card(
-                        elevation: 2,
-                        color: Colors.grey[700],
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '${_userData!['height']}',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 18),
-                            ),
-                            Text(
-                              "Height",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: Height * 0.08,
-                      width: Width * 0.25,
-                      child: Card(
-                        elevation: 2,
-                        color: Colors.grey[700],
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '${_userData!['weight']}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                            Text(
-                              "Weight",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: Height * 0.08,
-                      width: Width * 0.25,
-                      child: Card(
-                        elevation: 2,
-                        color: Colors.grey[700],
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Center(
-                                child: Text(
-                                  '${_userData!['age']}',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 18),
-                            )),
-                            Text(
-                              "Age",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: Height * 0.01,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: Card(
-                      color: Colors.white,
-                      elevation: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "  Account",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18),
-                          ),
-                          ListTile(
-                            leading: Icon(
-                              Icons.person,
-                              color: Colors.black,
-                              size: 22,
-                            ),
-                            title: Text(
-                              "Personal Data",
-                              style: TextStyle(color: Colors.black,),
-                            ),
-                            trailing: Icon(
-                              Icons.arrow_forward_ios_outlined,
-                              color: Colors.black,
-                              size: 18,
-                            ),
-                            onTap: () {
-                              Navigator.pushNamed(context, '/editProfile');
-                            },
-                          ),
-                          ListTile(
-                            leading: Icon(
-                              Icons.insert_chart_outlined_rounded,
-                              color: Colors.black,
-
-                              size: 22,
-                            ),
-                            title: Text(
-                              "Workout Progress",
-                              style: TextStyle(color: Colors.black,),
-                            ),
-                            trailing: Icon(
-                              Icons.arrow_forward_ios_outlined,
-                              color: Colors.black,
-                              size: 18,
-                            ),
-                            onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => ActivityTrackerPage()));
-                            },
-                          ),
-                          ListTile(
-                            leading: Icon(
-                              Icons.notifications_active_outlined,
-                              color: Colors.black,
-
-                            ),
-                            title: Text(
-                              "Notification",
-                              style: TextStyle(color: Colors.black,),
-                            ),
-                            trailing: CupertinoSwitch(
-                              value: _notificationswitch,
-                              onChanged: (value) {
-                                setState(() {
-                                  _notificationswitch = value;
-                                });
-                              },
-                            ),
-                            onTap: () {},
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: Height * 0.01),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: Card(
-                      color: Colors.white,
-                      elevation: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "  Others",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18),
-                          ),
-                          ListTile(
-                              leading: Icon(
-                                Icons.language_outlined,
-                                color: Colors.black,
-
-                              ),
-                              title: Text(
-                                "Language",
-                                style: TextStyle(color: Colors.black,
-                                ),
-                              ),
-                              trailing: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: DropdownButton(
-                                  dropdownColor: Colors.white,
-                                  value: lang,
-                                  icon: Icon(
-                                    Icons.arrow_drop_down,
-                                      color: Colors.black,
-
-                                  ),
-                                  items: items.map((String items) {
-                                    return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(
-                                        items,
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 12),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      lang = newValue!;
-                                    });
-                                  },
-                                ),
-                              )),
-                          ListTile(
-                            leading: Icon(
-                              Icons.next_plan_outlined,
-                              color: Colors.black,
-
-                              size: 22,
-                            ),
-                            title: Text(
-                              "Plan Setting",
-                              style: TextStyle(color: Colors.black,),
-                            ),
-                            trailing: Icon(
-                              Icons.arrow_forward_ios_outlined,
-                              color: Colors.black,
-                              size: 18,
-                            ),
-                            onTap: () {},
-                          ),
-                          ListTile(
-                            leading: Icon(
-                              Icons.email_outlined,
-                              color: Colors.black,
-
-                              size: 22,
-                            ),
-                            title: Text(
-                              "Contact Us",
-                              style: TextStyle(color: Colors.black,),
-                            ),
-                            trailing: Icon(
-                              Icons.arrow_forward_ios_outlined,
-                              color: Colors.black,
-                              size: 18,
-                            ),
-                            onTap: () {},
-                          ),
-                          ListTile(
-                            leading: Icon(
-                              Icons.dark_mode_outlined,
-                              color: Colors.black,
-
-                            ),
-                            title: Text(
-                              "Dark Mode",
-                              style: TextStyle(color: Colors.black,),
-                            ),
-                            trailing: CupertinoSwitch(
-                              value: _darkswitch,
-                              onChanged: (value) {
-                                setState(() {
-                                  _darkswitch = value;
-                                });
-                              },
-                            ),
-                            onTap: () {},
-                          ),
-                          ListTile(
-                            leading: Icon(
-                              Icons.logout_outlined,
-                              color: Colors.black,
-
-                            ),
-                            title: Text(
-                              "Logout",
-                              style: TextStyle(color: Colors.black,),
-                            ),
-                            trailing: Text("log Out",
-                            style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 14),),
-                            onTap: () {
-                              // Navigator.pushReplacementNamed(context, '/signIn');
-                              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+        backgroundColor: Colors.black,
+        elevation: 0,
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: height * 0.01),
+              _buildProfileHeader(width, height),
+              SizedBox(height: height * 0.01),
+              _buildStatsRow(width, height),
+              SizedBox(height: height * 0.01),
+              _buildAccountSection(context, width),
+              SizedBox(height: height * 0.01),
+              _buildOtherSection(context, width),
+            ],
           ),
         ),
+      ),
+    );
+  }
 
-        );
+  Widget _buildProfileHeader(double width, double height) {
+    return ListTile(
+      leading: const CircleAvatar(
+        radius: 30,
+        backgroundColor: Colors.grey,
+        child: Icon(Icons.person, color: Colors.white),
+      ),
+      title: Text(
+        _userData?['name'] ?? 'User',
+        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Colors.white),
+      ),
+      subtitle: const Text("Weight Gainer", style: TextStyle(color: Colors.grey)),
+      trailing: TextButton(
+        style: TextButton.styleFrom(
+          backgroundColor: Colors.grey[700],
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  EditProfilePage()),
+          );
+        },
+        child: const Text(
+          "Edit",
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12, color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatsRow(double width, double height) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        _buildStatCard("Height", _userData?['height'] ?? '--'),
+        _buildStatCard("Weight", _userData?['weight'] ?? '--'),
+        _buildStatCard("Age", _userData?['age'] ?? '--'),
+      ],
+    );
+  }
+
+  Widget _buildStatCard(String label, String value) {
+    return Container(
+      height: 80,
+      width: 80,
+      child: Card(
+        color: Colors.grey[700], // Dark card background
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(value, style: const TextStyle(color: Colors.white, fontSize: 18)),
+            Text(label, style: const TextStyle(color: Colors.white)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAccountSection(BuildContext context, double width) {
+    return Card(
+      margin: const EdgeInsets.all(8.0),
+      color: Colors.grey[800], // Dark card background for Account section
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const ListTile(title: Text("Account", style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white))),
+          _buildListTile(
+            context,
+            title: "Personal Data",
+            icon: Icons.person,
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>  EditProfilePage())),
+          ),
+          _buildListTile(
+            context,
+            title: "Workout Progress",
+            icon: Icons.insert_chart_outlined_rounded,
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ActivityTrackerPage())),
+          ),
+          SwitchListTile(
+            title: const Text("Notification", style: TextStyle(color: Colors.white)),
+            secondary: const Icon(Icons.notifications_active_outlined, color: Colors.white),
+            value: _notificationswitch,
+            onChanged: (value) => setState(() => _notificationswitch = value),
+            activeColor: Colors.blue, // Switch active color
+            inactiveThumbColor: Colors.grey, // Switch inactive color
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOtherSection(BuildContext context, double width) {
+    return Card(
+      margin: const EdgeInsets.all(8.0),
+      color: Colors.grey[800], // Dark card background for Other section
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const ListTile(title: Text("Others", style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white))),
+          _buildListTile(
+            context,
+            title: "Language",
+            icon: Icons.language_outlined,
+            trailing: DropdownButton<String>(
+              value: _lang,
+              items: _languages.map((lang) => DropdownMenuItem(value: lang, child: Text(lang, style: TextStyle(color: Colors.white)))).toList(),
+              onChanged: (value) => setState(() => _lang = value!),
+              dropdownColor: Colors.grey[800], // Dropdown background color
+              iconEnabledColor: Colors.white, // Dropdown icon color
+            ),
+          ),
+          _buildListTile(context, title: "Plan Setting", icon: Icons.next_plan_outlined),
+          _buildListTile(context, title: "Contact Us", icon: Icons.email_outlined),
+          SwitchListTile(
+            title: const Text("Dark Mode", style: TextStyle(color: Colors.white)),
+            secondary: const Icon(Icons.dark_mode_outlined, color: Colors.white),
+            value: _darkswitch,
+            onChanged: (value) => setState(() => _darkswitch = value),
+            activeColor: Colors.blue, // Switch active color
+            inactiveThumbColor: Colors.grey, // Switch inactive color
+          ),
+          _buildListTile(
+            context,
+            title: "Logout",
+            icon: Icons.logout_outlined,
+            trailing: const Text("Log Out", style: TextStyle(color: Colors.red)),
+            onTap: () => Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildListTile(BuildContext context, {required String title, required IconData icon, Widget? trailing, VoidCallback? onTap}) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.white),
+      title: Text(title, style: const TextStyle(color: Colors.white)),
+      trailing: trailing ?? const Icon(Icons.arrow_forward_ios_outlined, color: Colors.white),
+      onTap: onTap,
+    );
   }
 }
