@@ -16,9 +16,12 @@ class Training extends StatefulWidget {
 
 class _TrainingState extends State<Training> {
   List info=[];
-  _initData(){
-    DefaultAssetBundle.of(context).loadString("json/info.json").then((value){
-      info= json.decode(value);
+  _initData() async{
+    await DefaultAssetBundle.of(context).loadString("json/info.json").then((value){
+      setState(() {
+        info= json.decode(value);
+      });
+
 
     });
   }
@@ -101,6 +104,7 @@ class _TrainingState extends State<Training> {
 
 
 
+                SizedBox(height: 10,),
                 Row(
                   children: [
                     Text("Your Program",

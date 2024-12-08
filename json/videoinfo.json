@@ -1,0 +1,51 @@
+[
+  {
+    "title":  "Squat and Walk",
+    "time": "10 Seconds",
+    "thumbnail": "images/Squat1.jpg",
+    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4"
+
+  },
+  {
+    "title":  "Walk",
+    "time": "10 Seconds",
+    "thumbnail": "images/Squat1.png",
+    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4"
+
+  },
+  {
+    "title":  "and",
+    "time": "10 Seconds",
+    "thumbnail": "images/Squat1.png",
+    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4"
+
+  },
+  {
+    "title":  "Squat and Walk",
+    "time": "10 Seconds",
+    "thumbnail": "images/Squat1.png",
+    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4"
+
+  },
+  {
+    "title":  "Squat and Walk",
+    "time": "10 Seconds",
+    "thumbnail": "images/Squat1.png",
+    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4"
+
+  },
+  {
+    "title":  "Squat and Walk",
+    "time": "10 Seconds",
+    "thumbnail": "images/Squat1.png",
+    "videoUrl": "https://www.youtube.com/watch?v=g7NmDRkAka8"
+
+  },
+  {
+    "title":  "Squat and Walk",
+    "time": "10 Seconds",
+    "thumbnail": "images/Squat1.png",
+    "videoUrl": "https://www.shutterstock.com/video/clip-3606224965-vibrant-sunny-park-cheerful-woman-joyfully-exercises"
+
+  }
+]

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/colorextension.dart';
@@ -5,8 +7,10 @@ import 'package:demo/colorextension.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:video_player/video_player.dart';
 
 class VedioInfo extends StatefulWidget {
+
 
 
 
@@ -19,6 +23,26 @@ class VedioInfo extends StatefulWidget {
 }
 
 class _VedioInfoState extends State<VedioInfo> {
+  List vedioinfo=[];
+  bool _playArea=false;
+  late VideoPlayerController _controller;
+  _initData() async{
+    await DefaultAssetBundle.of(context).loadString("json/videoinfo.json").then((value){
+      setState(() {
+        vedioinfo= json.decode(value);
+      });
+
+
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _initData();
+
+  }
   @override
   Widget build(BuildContext context) {
     var Width = MediaQuery.of(context).size.width;
@@ -29,7 +53,7 @@ class _VedioInfoState extends State<VedioInfo> {
 
 
       body: Container(
-        decoration: BoxDecoration(
+        decoration: _playArea==false?BoxDecoration(
           gradient: LinearGradient(
             colors:[
               TColor.greey.withOpacity(0.9),
@@ -38,6 +62,8 @@ class _VedioInfoState extends State<VedioInfo> {
                 begin: const FractionalOffset(0.0, 0.4),
           end: Alignment.topRight,
           )
+        ):BoxDecoration(
+        color: TColor.greey
         ),
         child: Column(
           children: [
@@ -66,7 +92,7 @@ class _VedioInfoState extends State<VedioInfo> {
                 ),
         ),
 
-            Container(
+            _playArea==false?Container(
 
 
               padding: EdgeInsets.all(19),
@@ -159,6 +185,12 @@ class _VedioInfoState extends State<VedioInfo> {
                 ],
               ),
 
+            ):Container(
+              //width: Width,
+              //height: Height*0.25,
+              //color: TColor.greey,
+              child:  _playView(context) ,
+
             ),
             Expanded(child: Container(
               decoration: BoxDecoration(
@@ -191,17 +223,178 @@ class _VedioInfoState extends State<VedioInfo> {
                           ),)
                         ],
                       ),
-                      SizedBox(width: 20,),
+                      //SizedBox(width: 20,),
 
                     ],
-                  )
+                  ),
+                  
+                  Expanded(child: _listview() ),
                 ],
               ),
             ))
           ],
         ),
-      ),
+      ),);
+  }
 
+   Widget _playView(BuildContext context){
+    final controller =_controller;
+    if(controller!=null&&controller.value.isInitialized){
+      //var Width = MediaQuery.of(context).size.width;
+      //var Height = MediaQuery.of(context).size.height;
+     return AspectRatio(
+       aspectRatio: 16/9,
+       //color: TColor.greey,
+
+       child: VideoPlayer(controller),
+     );
+    }else{
+      return AspectRatio(
+        aspectRatio: 16/9,
+          child: Center(
+              child: Text("Preparing...",
+              style: TextStyle(
+                fontSize: 20,
+                color: TColor.white
+              ),
+              )));
+
+    }
+  }
+  _onTapVideo(int index){
+    final controller = VideoPlayerController.network(vedioinfo[index]["videoUrl"]);
+    _controller=controller;
+    setState(() {
+    });
+    controller..initialize().then((_){
+    controller.play();
+    setState(() {
+
+    });
+    });
+
+
+  }
+  _listview(){
+    return ListView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 15,vertical: 25),
+        itemCount: vedioinfo.length ,
+        itemBuilder: (_, int index){
+
+          return GestureDetector(
+              onTap: (){
+                _onTapVideo(index);
+                debugPrint(index.toString());
+                setState(() {
+                 if (_playArea==false){
+                   _playArea=true;
+                 }
+                });
+              },
+              child: _buildCard(index)
+
+          );
+        });
+  }
+  _buildCard(int index){
+    var Width = MediaQuery.of(context).size.width;
+    var Height = MediaQuery.of(context).size.height;
+    return Container(
+      height: Height*0.15,
+      //color: Colors.red,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: Width*0.3,
+                height: Height*0.1,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                        image: AssetImage(
+                            vedioinfo[index]["thumbnail"]
+                        ),
+                        fit: BoxFit.cover
+                    )
+                ),
+              ),
+              SizedBox(width: 10),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    vedioinfo[index]["title"],
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  //SizedBox(height: 10,),
+                  Padding(
+                    padding: EdgeInsets.all(2),
+                    child: Text(
+                      vedioinfo[index]["time"],
+                      style: TextStyle(
+                          color: TColor.gray
+                      ),
+                    ),
+                  )
+
+                ],
+              )
+
+            ],
+          ),
+          SizedBox(height: 10),
+          Row(
+            children: [
+              Container(
+                width: Width*0.3,
+                height: Height*0.02,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                  child: Text(
+                    '''15 Sec Rest''',
+                    style: TextStyle(
+                        color: TColor.greey,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  for(int i=0;i<55;i++)
+
+                    i.isEven?Container(
+                      width: Width*0.009,
+                      height: Height*0.004,
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(2)
+                      ),
+                    ):Container(
+                      width: Width*0.009,
+                      height: Height*0.004,
+                      color: Colors.white,
+
+                    )
+                ],
+
+              )
+
+            ],
+          )
+
+        ],
+      ),
     );
   }
+
+
 }

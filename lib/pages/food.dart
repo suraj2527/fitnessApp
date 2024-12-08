@@ -12,12 +12,12 @@ class foodTile extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Center(
-              child: Text(
+          title:
+             Text(
                 'Food',
                 style: TextStyle(
                     color: Colors.black, fontWeight: FontWeight.w600),
-              )),
+              ),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
@@ -69,8 +69,8 @@ class foodTile extends StatelessWidget {
 Mushroom Matar
 Paneer Curry''',
       '''Quinoa  Vegetable
-Khichdi,Shahi Paneer,
-Vegetable Salad.''',
+Khichdi,Shahi Paneer,Vegetable
+ Salad.''',
       '''Bajra Roti With
 Masoor Dal And
 Cabbage Sabzi''',
@@ -84,8 +84,7 @@ And Spinach Salad''',
 Rice, Mixed Green
 Salad''',
       '''Palak Paneer Multigrain
-Roti Lauki Raita And
-Mango Salad''',
+Roti Lauki Raita ''',
       '''Tofu Curry,  Whole
 Wheat Roti, Sprouts
 Salad''',
