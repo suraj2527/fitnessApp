@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:demo/colorextension.dart';
-class foodTile extends StatelessWidget {
-  const foodTile({super.key});
+import 'package:demo/colorextension.dart';  // Assuming this is your custom color extension file
+
+class FoodTile extends StatelessWidget {
+  const FoodTile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,43 +12,46 @@ class foodTile extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        backgroundColor: Colors.black, // Dark background for the whole scaffold
         appBar: AppBar(
           title: Center(
-              child: Text(
-                'Food',
-                style: TextStyle(
-                    color: Colors.black, fontWeight: FontWeight.w600),
-              )),
+            child: Text(
+              'Food',
+              style: TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.w600, fontSize: 24),
+            ),
+          ),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
+          backgroundColor: Colors.black, // Dark background for AppBar
+          elevation: 0,
           bottom: TabBar(
             tabs: [
               Tab(text: 'Breakfast'),
               Tab(text: 'Lunch'),
               Tab(text: 'Dinner'),
-
             ],
-            labelColor: Colors.black,
-            unselectedLabelColor: Colors.grey,
-            indicatorColor: Colors.black,
+            labelColor: Colors.white, // Active tab text color
+            unselectedLabelColor: Colors.grey, // Inactive tab text color
+            indicatorColor: Colors.white, // Tab indicator color
           ),
         ),
         body: TabBarView(
           children: [
+            buildTabContent(screenWidth, screenHeight), // Correctly call the method
             buildTabContent(screenWidth, screenHeight),
             buildTabContent(screenWidth, screenHeight),
-            buildTabContent(screenWidth, screenHeight),
-
           ],
         ),
       ),
     );
   }
 
+  // The buildTabContent method should be within the same class as FoodTile
   Widget buildTabContent(double screenWidth, double screenHeight) {
     final List<String> images = [
       "images/B1.jpg",
@@ -61,7 +65,6 @@ class foodTile extends StatelessWidget {
       "images/B9.jpeg",
       "images/B10.jpeg",
       "images/B11.jpeg",
-
     ];
 
     final List<String> items = [
@@ -110,35 +113,39 @@ Curd'''
               padding: const EdgeInsets.all(12.0),
               child: ListView.builder(
                 itemCount: 10,
-                itemBuilder: (context, index ) {
+                itemBuilder: (context, index) {
                   return Card(
-                    elevation: 1,
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                     child: Container(
-
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: LinearGradient(
-                              colors: [
-                                TColor.primaryColor1.withOpacity(0.11119),
-                                TColor.primaryColor2.withOpacity(0.25),
-                              ]
-                          )
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.grey.withOpacity(0.1), // Dark gray background
+                            Colors.black.withOpacity(0.25), // Darker shade for gradient
+                          ],
+                        ),
                       ),
-                      height: screenHeight*0.125,
+                      height: screenHeight * 0.15,
                       child: ListTile(
-                        title: Text(items[index]),
-                        trailing: Container(
-                          height: 80,
-                          width: 80,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40)
+                        title: Text(
+                          items[index],
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white, // White text for dark theme
                           ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30)
-                            ),
-                            child: Image.asset(images[index],
-                            ),
+                        ),
+                        trailing: ClipRRect(
+                          borderRadius: BorderRadius.circular(40),
+                          child: Image.asset(
+                            images[index],
+                            height: 80,
+                            width: 80,
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
